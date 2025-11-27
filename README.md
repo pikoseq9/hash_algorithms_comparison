@@ -16,32 +16,6 @@ Dodatkowy moduł porównujący umożliwia zestawienie wyników (hashy) oraz czas
 
 ---
 
-## Struktura projektu
-
-hash_algorithms_project/
-│
-├── README.md
-├── data/
-│ └── input.txt # dane wejściowe do testów (np. teksty, pliki)
-│
-├── comparison/ # skrypt porównujący wyniki
-│ └── compare.py
-│
-├── cpp/
-│ ├── md5.cpp
-│ ├── sha1.cpp
-│ ├── sha256.cpp
-│
-├── python/
-│ ├── md5.py
-│ ├── sha1.py
-│ ├── sha256.py
-│
-└── csharp/
-├── MD5.cs
-├── SHA1.cs
-├── SHA256.cs
-
 ##  C++ 
 - **Compiler:** `g++` or `clang` (supporting C++11 or newer)
 ## Python
