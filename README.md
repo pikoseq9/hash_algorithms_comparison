@@ -12,7 +12,7 @@ Każdy z algorytmów został zaimplementowany w trzech językach programowania:
 - **Python**
 - **C#**
 
-##Instukcja
+##  Instrukcja
 
 # Backend
 
