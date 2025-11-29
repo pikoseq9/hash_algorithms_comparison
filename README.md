@@ -12,16 +12,19 @@ Każdy z algorytmów został zaimplementowany w trzech językach programowania:
 - **Python**
 - **C#**
 
-Dodatkowy moduł porównujący umożliwia zestawienie wyników (hashy) oraz czasu wykonania poszczególnych implementacji.
+##Instukcja
 
----
+# Backend
 
-##  C++ 
-- **Compiler:** `g++` or `clang` (supporting C++11 or newer)
-## Python
-- **Python 3.10+**
-## C#
-- **.NET SDK 8.0 or newer**
+1. Przejdź do katalogu backend : cd /backend
+2. npm install
+3. node index.js lub npm start
+
+# Frontend
+
+1. Przejdź do katalogu frontend : cd /frontend
+2. npm install
+3. npm run dev
 
 ## Grupa: Patryk Weklicz, Patrycja Janik, Kacper Śliwka
 Kierunek: Informatyka
