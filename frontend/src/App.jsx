@@ -10,7 +10,7 @@ export default function App() {
         python: { md5: false, sha1: false, sha2: false }
     });
 
-    const [results, setResults] = useState({});
+    const [results, setResults] = useState([]); // zmiana na tablicę
 
     const toggle = (lang, algo) => {
         setSelected(prev => ({
@@ -20,24 +20,36 @@ export default function App() {
     };
 
     const handleSubmit = async () => {
-        const output = {};
+        setResults([]); // czyścimy poprzednie wyniki
+        const promises = [];
 
         for (const lang of Object.keys(selected)) {
             for (const algo of Object.keys(selected[lang])) {
                 if (!selected[lang][algo]) continue;
 
-                const res = await fetch(
+                const promise = fetch(
                     `http://localhost:3001/api/hash?lang=${lang}&algo=${algo}&message=${encodeURIComponent(message)}`
-                );
+                )
+                .then(res => res.text())
+                .then(text => {
+                    setResults(prev => [
+                        ...prev,
+                        { lang, algo, hash: text } // dodajemy wynik do tablicy
+                    ]);
+                })
+                .catch(err => {
+                    console.error(err);
+                    setResults(prev => [
+                        ...prev,
+                        { lang, algo, hash: "Błąd" }
+                    ]);
+                });
 
-                const text = await res.text();
-
-                if (!output[lang]) output[lang] = {};
-                output[lang][algo] = text;
+                promises.push(promise);
             }
         }
 
-        setResults(output);
+        await Promise.all(promises);
     };
 
     return (
@@ -51,58 +63,34 @@ export default function App() {
                     className="input"
                 />
                 <div className="groups">
-                    {/* C++ */}
-                    <div className="group">
-                        <h3>C++</h3>
-                        {Object.keys(selected.cpp).map(algo => (
-                            <label key={algo} className="checkbox">
-                                <input
-                                    type="checkbox"
-                                    checked={selected.cpp[algo]}
-                                    onChange={() => toggle("cpp", algo)}
-                                />
-                                {algo.toUpperCase()}
-                            </label>
-                        ))}
-                    </div>
-
-                    {/* C# */}
-                    <div className="group">
-                        <h3>C#</h3>
-                        {Object.keys(selected.cs).map(algo => (
-                            <label key={algo} className="checkbox">
-                                <input
-                                    type="checkbox"
-                                    checked={selected.cs[algo]}
-                                    onChange={() => toggle("cs", algo)}
-                                />
-                                {algo.toUpperCase()}
-                            </label>
-                        ))}
-                    </div>
-
-                    {/* Python */}
-                    <div className="group">
-                        <h3>Python</h3>
-                        {Object.keys(selected.python).map(algo => (
-                            <label key={algo} className="checkbox">
-                                <input
-                                    type="checkbox"
-                                    checked={selected.python[algo]}
-                                    onChange={() => toggle("python", algo)}
-                                />
-                                {algo.toUpperCase()}
-                            </label>
-                        ))}
-                    </div>
+                    {["cpp", "cs", "python"].map(lang => (
+                        <div key={lang} className="group">
+                            <h3>{lang.toUpperCase()}</h3>
+                            {Object.keys(selected[lang]).map(algo => (
+                                <button
+                                    key={algo}
+                                    className={`checkbox ${selected[lang][algo] ? "chosen" : ""}`}
+                                    onClick={() => toggle(lang, algo)}
+                                >
+                                    {algo.toUpperCase()}
+                                </button>
+                            ))}
+                        </div>
+                    ))}
                 </div>
 
                 <button className="btn" onClick={handleSubmit}>Generuj</button>
 
-                <h2>Wyniki:</h2>
-                <pre className="results">
-                    {JSON.stringify(results, null, 2)}
-                </pre>
+                <h2>Wyniki w kolejności:</h2>
+                <ul className="results">
+                    {results.map((r, i) => (
+                        <li key={i}>
+                            <span className="lang">{r.lang.toUpperCase()}</span>
+                            <span className="algo">{r.algo.toUpperCase()}</span>
+                            <span className="hash">{r.hash}</span>
+                        </li>
+                    ))}
+                </ul>
             </div>
         </div>
     );

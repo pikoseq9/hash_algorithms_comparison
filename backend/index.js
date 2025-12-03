@@ -20,7 +20,9 @@ app.get("/api/hash", (req, res) => {
         return res.status(404).send(`Brak implementacji dla ${algo} w  ${lang}`);
     }
 
-    execFile(exePath, [message], (error, stdout) => {
+    messagetoHash = "\"" + message + "\"";
+
+    execFile(exePath, [messagetoHash], (error, stdout) => {
         if (error) {
             console.error("Error running exe:", error);
             return res.status(500).send("Error executing hash function");

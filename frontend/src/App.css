@@ -64,6 +64,24 @@ h1 {
     font-size: 15px;
     background-color: #121212;
     padding: 0.2rem;
+    color: #f0f0f0;
+    width: 100%;
+    border: none;
+    border-radius: 0.5rem;
+    padding: 0.5rem;
+}
+
+.checkbox:hover {
+    background-color: #1b1b1b;
+}
+
+.chosen {
+    background-color: #ffa500;
+    color: #121212;
+}
+
+.chosen:hover {
+    background: #cc8400;
 }
 
 .btn {
@@ -83,10 +101,36 @@ h1 {
 }
 
 .results {
-    background: #1b1b1b;
-    color: #ffa500;
-    padding: 15px;
+    list-style: none;
+    padding: 0;
+    margin: 20px 0 0 0;
+}
+
+.results li {
+    display: grid;
+    grid-template-columns: 100px 80px 1fr;
+    align-items: center;
+    padding: 10px 15px;
+    margin-bottom: 10px;
     border-radius: 8px;
-    overflow-x: auto;
-    max-height: 300px;
+    box-shadow: 0 2px 6px rgba(0,0,0,0.1);
+    background-color: #555;
+    font-family: Arial, sans-serif;
+    font-size: 14px;
+}
+
+.results li span.lang {
+    font-weight: bold;
+    color: #ffa500;
+}
+
+.results li span.algo {
+    font-style: italic;
+    color: #cc8400;
+}
+
+.results li span.hash {
+    font-family: 'Courier New', monospace;
+    color: #f0f0f0;
+    word-break: break-all;
 }
