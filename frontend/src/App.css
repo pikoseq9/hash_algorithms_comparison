@@ -14,7 +14,7 @@ body {
 
 .form-box {
     background: #1e1e1e;
-    min-width: 30rem;
+    min-width: 52rem;
     padding: 2rem;
     border-radius: 1rem;
 }
@@ -36,6 +36,19 @@ h1 {
     color: #f0f0f0;
 }
 
+.input-error {
+    border: 2px solid red;
+    animation: shake 0.3s;
+}
+
+/* Opcjonalna animacja wstrząsu dla efektu */
+@keyframes shake {
+    0% { transform: translateX(0); }
+    25% { transform: translateX(-2px); }
+    50% { transform: translateX(2px); }
+    75% { transform: translateX(-2px); }
+    100% { transform: translateX(0); }
+}
 
 .groups {
     display: flex;
@@ -134,3 +147,109 @@ h1 {
     color: #f0f0f0;
     word-break: break-all;
 }
+
+.route-btn {
+    position: fixed;
+    left: 2rem;
+    top: 2rem;
+    width: 15rem;
+
+    padding: 2rem;
+    color: #ffa500;
+    font-weight: bold;
+    text-decoration: none;
+    justify-content: center;
+    align-items: center;
+
+    background: rgba(255, 255, 255, 0.05);
+    backdrop-filter: blur(10px);
+    -webkit-backdrop-filter: blur(10px);
+
+    border: 1px solid #ffa500;
+    border-radius: 1rem;
+
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+
+    font-size: 1rem;
+    transition: background 0.25s ease, transform 0.25s ease, border-color 0.25s ease;
+    z-index: 1000;
+}
+
+.route-btn:hover {
+    background: rgba(255, 165, 0, 0.15);
+    border-color: #ffb347;
+    transform: scale(1.03);
+}
+
+.route-btn:active {
+    transform: 0.97;
+}
+
+.route-btn i {
+    font-size: 1.4rem;
+    color: #ffa500;
+    transition: 0.25s ease;
+}
+
+.route-btn:hover i {
+    transform: scale(1.1);
+    color: #f0f0f0;
+}
+
+.route-btn:active i {
+    transform: scale(0.9);
+}
+
+.compare-body {
+    margin: 10rem auto 0;
+}
+
+.loading {
+    text-align: center;
+    font-size: 24px;
+    color: #555;
+}
+
+.fail-compare {
+    text-align: center;
+    font-size: 24px;
+    color: red;
+}
+
+.compare-dashboard {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 20px;
+    justify-content: center;
+}
+
+.compare-group {
+    width: 300px;
+    background-color: #2a2a2a;
+    border-radius: 10px;
+    padding: 10px;
+    box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+    transform: translateY(-30px);
+    opacity: 0;
+}
+
+.animate {
+    animation: slideIn 0.5s ease forwards;
+    animation-delay: calc(var(--i) * 0.2s); /* każda grupa po kolei */
+}
+
+@keyframes slideIn {
+    to {
+        transform: translateY(0);
+        opacity: 1;
+    }
+}
+
+.compare-group h2 {
+    text-align: center;
+    margin-bottom: 10px;
+}
+
+
