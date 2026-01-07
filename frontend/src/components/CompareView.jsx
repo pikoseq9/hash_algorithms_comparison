@@ -9,25 +9,26 @@ export default function CompareView() {
     const touchStartY = useRef(null);
     const isScrolling = useRef(false);
 
-    useEffect(() => {
-        const timer = setTimeout(() => {
-            setIsLoading(false);
-            setResult({
-                success: true,
-                score: [
-                    { language: "cpp", avgTime: 0.51, cpuUsage: 4.3, ramUsage: 1.23 },
-                    { language: "cs", avgTime: 0.75, cpuUsage: 5.1, ramUsage: 1.8 },
-                    { language: "python", avgTime: 1.20, cpuUsage: 6.5, ramUsage: 2.5 },
-                ],
-            });
-        }, 1000);
+  useEffect(() => {
+        const fetchData = async () => {
+            setIsLoading(true);
+            try {
+                const response = await fetch('http://localhost:3001/api/compare');
+                const data = await response.json();
+                setResult({ success: true, score: data });
+            } catch (err) {
+                console.error('Error fetching data:', err);
+                setResult({ success: false, score: [] });
+            } finally {
+                setIsLoading(false);
+            }
+        };
 
-        return () => clearTimeout(timer);
-    }, []);
+        fetchData();
+    }, []); 
 
     if (isLoading) return <h1 className="loading">Pobieranie wyników...</h1>;
-    if (!result.success) return <h1 className="fail-compare">Błąd pobierania wyników</h1>;
-
+    
     const handleTouchStart = (e) => {
         touchStartY.current = e.touches[0].clientY;
     };
