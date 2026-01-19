@@ -69,6 +69,7 @@ export default function HashView() {
                     value={message}
                     onChange={(e) => setMessage(e.target.value)}
                     placeholder="Wpisz wiadomość"
+                    maxLength={1000}
                     className={`input ${error ? "input-error" : ""}`}
                 />
                 <div className="groups">
